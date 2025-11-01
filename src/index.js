@@ -1,17 +1,28 @@
 import express from "express";
-import { router } from "./routes/tasks.js";
+import https from "https";
+import fs from "fs";
+import { router } from "./routes/tasksRoute.js";
 import "dotenv/config";
+import { serverError } from "./middleware/errorHandler.js";
 
 const app = express();
 const port = process.env.PORT;
-
 app.use(express.json());
-
 app.use("/tasks", router);
+app.use(serverError);
 
-app.listen(port, () => {
-  console.log(`server is running on port ${port}`);
+// Load SSL certificates
+const options = {
+  key: fs.readFileSync(process.env.CERT_KEY),
+  cert: fs.readFileSync(process.env.CERT_PEM),
+};
+
+// ####(REMINDER) Create self-signed certificate for HTTPS development
+// mkdir cert
+// openssl req -nodes -new -x509 -keyout cert/key.pem -out cert/cert.pem -subj "/CN=localhost"
+
+https.createServer(options, app).listen(port, () => {
+  console.log(`server running on https://localhost:${port}`);
 });
 
-// think about alter DB, status default value = false
-// think about how to change status value in first created data in MYSql
+// think about change it into https, instead of http (V)
