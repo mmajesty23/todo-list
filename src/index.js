@@ -24,5 +24,3 @@ const options = {
 https.createServer(options, app).listen(port, () => {
   console.log(`server running on https://localhost:${port}`);
 });
-
-// think about change it into https, instead of http (V)
