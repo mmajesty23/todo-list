@@ -1,4 +1,3 @@
-import { serverError } from "../middleware/errorHandler.js";
 import {
   createTaskDB,
   getAllTaskDB,

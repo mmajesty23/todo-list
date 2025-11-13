@@ -1,4 +1,5 @@
 import express from "express";
+// import cors from "cors"; // penting jika FE dan BE running beda port
 import https from "https";
 import fs from "fs";
 import { router } from "./routes/tasksRoute.js";
@@ -6,6 +7,14 @@ import "dotenv/config";
 import { serverError } from "./middleware/errorHandler.js";
 
 const app = express();
+
+// app.use(
+//   cors({
+//     origin: "http://localhost:5173",
+//     credentials: true,
+//   })
+// ); ####################################### UPCOMING HOMEWORK
+
 const port = process.env.PORT;
 app.use(express.json());
 app.use("/tasks", router);

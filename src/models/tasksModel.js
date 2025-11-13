@@ -1,4 +1,3 @@
-import { title } from "process";
 import { dbPool } from "../config/database.js";
 
 // CREATE TASK - POST
